@@ -30,12 +30,22 @@ def load_data():
 
 
 def run_knn(points):
-    m = KNN(5)
+    #for k in range(1,31):
+    #    m = KNN(k=k)
+    #    m.train(points)
+    #    print(f'predicted class: {m.predict(points[0])}')
+    #    print(f'true class: {points[0].label}')
+    #    cv = CrossValidation()
+    #    cv.run_cv(points, len(points), m, accuracy_score)
+    m = KNN(k=7)
     m.train(points)
     print(f'predicted class: {m.predict(points[0])}')
     print(f'true class: {points[0].label}')
     cv = CrossValidation()
-    cv.run_cv(points, 10, m, accuracy_score)
+    cv.run_cv(points, 2, m, accuracy_score, print_fold_score=True)
+    cv.run_cv(points, 10, m, accuracy_score, print_fold_score=True)
+    cv.run_cv(points, 20, m, accuracy_score,print_fold_score=True)
+
 
 
 if __name__ == '__main__':
