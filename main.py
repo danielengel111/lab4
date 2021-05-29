@@ -29,8 +29,18 @@ def load_data():
     return points
 
 
+def knn_n_fold(k, n, points, normal_type):
+    m = KNN(k)
+    m.train(normal_type(points))
+    cv = CrossValidation()
+    cv.run_cv(points, n, m, accuracy_score, print_fold_score=True)
+
+
+
+
+
 def run_knn(points):
-    #for k in range(1,31):
+    # for k in range(1,31):
     #    m = KNN(k=k)
     #    m.train(points)
     #    print(f'predicted class: {m.predict(points[0])}')
@@ -44,8 +54,8 @@ def run_knn(points):
     cv = CrossValidation()
     cv.run_cv(points, 2, m, accuracy_score, print_fold_score=True)
     cv.run_cv(points, 10, m, accuracy_score, print_fold_score=True)
-    cv.run_cv(points, 20, m, accuracy_score,print_fold_score=True)
-
+    cv.run_cv(points, 20, m, accuracy_score, print_fold_score=True)
+    knn_n_fold(5,2,points,l1)
 
 
 if __name__ == '__main__':
