@@ -44,7 +44,7 @@ class KNN:
         return result
 
     def _predict(self, point):
-        index_to_distance = {point_index: point.distance_to(p.coordinates)
+        index_to_distance = {point_index: point.distance_to(p.coordinates,self._norm)
                              for point_index, p in enumerate(self._points)}  # dict point_index -> distance
         sorted_indices = sorted(index_to_distance.keys(), key=lambda x: index_to_distance[x])
         closest_neighbors = [self._points[i] for i in sorted_indices[:self._k]]

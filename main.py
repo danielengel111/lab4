@@ -30,13 +30,24 @@ def load_data():
 
 
 def knn_n_fold(k, n, points, normal_type):
-    m = KNN(k)
+    m = KNN(k,1)
     m.train(normal_type(points))
+    m.predict(points[0])
     cv = CrossValidation()
     cv.run_cv(points, n, m, accuracy_score, print_fold_score=True)
 
 
-
+def l1(points):
+    new_points = []
+    sum=0
+    for point in points:
+        for coordinate in point.coordinates:
+            sum += coordinate
+    for point in points:
+        new_coordinates = point.coordinates
+        new_coordinates = [(new_coordinates[i]/ sum) for i in range(len(point.coordinates))]
+        new_points.append(Point(point.name,new_coordinates,point.label))
+    return new_points
 
 
 def run_knn(points):
@@ -55,7 +66,7 @@ def run_knn(points):
     cv.run_cv(points, 2, m, accuracy_score, print_fold_score=True)
     cv.run_cv(points, 10, m, accuracy_score, print_fold_score=True)
     cv.run_cv(points, 20, m, accuracy_score, print_fold_score=True)
-    knn_n_fold(5,2,points,l1)
+    knn_n_fold(5, 2, points, l1)
 
 
 if __name__ == '__main__':
