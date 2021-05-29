@@ -5,7 +5,7 @@ class CrossValidation:
     def __init__(self):
         self._folds = []
 
-    def run_cv(self, data, n_folds, classifier, scoring_function, print_final_score=True, print_fold_score=False):
+    def run_cv(self, data, n_folds, classifier, scoring_function,normal, print_final_score=True, print_fold_score=False):
         """
         Runs cross validation
         :param n_folds: number of folds(int)
@@ -33,6 +33,8 @@ class CrossValidation:
             for inner_index in range(n_folds):
                 if inner_index != out_fold_index:
                     train_set += self._folds[inner_index]
+            #train_set=normal(train_set)
+            #test_set=normal(test_set)
 
             # Train and predict
             classifier.train(train_set)
