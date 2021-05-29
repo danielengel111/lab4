@@ -9,6 +9,19 @@ class DummyNormalizer:
     def transform(self, points):
         return points
 
+class SumNormalizer:
+
+    def l1(self, points):
+        new_points = []
+        sum=0
+        for point in points:
+            for coordinate in point.coordinates:
+                sum += coordinate
+        for point in points:
+            new_coordinates = point.coordinates
+            new_coordinates = [(new_coordinates[i]/ sum) for i in range(len(point.coordinates))]
+            new_points.append(Point(point.name,new_coordinates,point.label))
+        return new_points
 
 class ZNormalizer:
     def __init__(self):
