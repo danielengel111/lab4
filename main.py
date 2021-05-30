@@ -30,7 +30,7 @@ def load_data():
 
 
 def knn_n_fold(k, n, points, normal_type):
-    m = KNN(k,1)
+    m = KNN(k)
     cv = CrossValidation()
     cv.run_cv(normal_type(points), n, m, accuracy_score,normal_type, print_fold_score=True)
 
@@ -39,24 +39,39 @@ def knn_n_fold(k, n, points, normal_type):
 
 
 def run_knn(points):
-    # for k in range(1,31):
-    #    m = KNN(k=k)
-    #    m.train(points)
-    #    print(f'predicted class: {m.predict(points[0])}')
-    #    print(f'true class: {points[0].label}')
-    #    cv = CrossValidation()
-    #    cv.run_cv(points, len(points), m, accuracy_score)
-    m = KNN(k=7)
+    #for k in range(1,31):
+     #   m = KNN(k=k)
+      #  m.train(points)
+       # print(f'predicted class: {m.predict(points[0])}')
+        #print(f'true class: {points[0].label}')
+        #cv = CrossValidation()
+        #cv.run_cv(points, len(points), m, accuracy_score,d.transform(points))
+    print("Question 3:\nK=19")
+    m = KNN(k=19)
     m.train(points)
-    print(f'predicted class: {m.predict(points[0])}')
-    print(f'true class: {points[0].label}')
     cv = CrossValidation()
-    d=DummyNormalizer()
+    z=ZNormalizer()
+    z.fit(points)
+    d = DummyNormalizer()
     sum = SumNormalizer()
-    cv.run_cv(points, 2, m, accuracy_score,d.transform, print_fold_score=True)
-    cv.run_cv(points, 10, m, accuracy_score,d.transform, print_fold_score=True)
-    cv.run_cv(points, 20, m, accuracy_score,d.transform, print_fold_score=True)
+    min_max=MinMaxNormalizer()
+    min_max.fit(points)
+    print("2-fold-cross-validation:")
+    cv.run_cv(points, 2, m, accuracy_score,d.transform,print_final_score=False, print_fold_score=True)
+    print("10-fold-cross-validation:")
+    cv.run_cv(points, 10, m, accuracy_score,d.transform,print_final_score=False, print_fold_score=True)
+    print("20-fold-cross-validation:")
+    cv.run_cv(points, 20, m, accuracy_score,d.transform,print_final_score=False, print_fold_score=True)
+    print("Question 4:\nK=5")
+    knn_n_fold(5, 2, points, d.transform)
     knn_n_fold(5, 2, points, sum.l1)
+    knn_n_fold(5, 2, points, min_max.transform)
+    knn_n_fold(5, 2, points, z.transform)
+    print("K=7")
+    knn_n_fold(7, 2, points, d.transform)
+    knn_n_fold(7, 2, points, sum.l1)
+    knn_n_fold(7, 2, points, min_max.transform)
+    knn_n_fold(7, 2, points, z.transform)
 
 
 if __name__ == '__main__':

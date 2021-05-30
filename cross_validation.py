@@ -49,5 +49,5 @@ class CrossValidation:
 
         average_score /= n_folds
         if print_final_score:
-            print(scoring_function.__name__, average_score)
+            print(scoring_function.__name__, average_score,"\n")
         return average_score
