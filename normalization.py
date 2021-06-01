@@ -13,6 +13,11 @@ class DummyNormalizer:
 class SumNormalizer:
 
     def l1(self, points):
+        """
+        transform the points and normalize them
+        :param points: the points to normalize
+        :return: the new points
+        """
         new_points = []
         sum = []
         for point in points:
@@ -54,6 +59,11 @@ class MinMaxNormalizer:
         self.min_coordinate = []
 
     def fit (self,points):
+        """
+        finds the minimum and maximum values
+        :param points: the points to find the maximum and minimum of each value from
+        :return:
+        """
         all_coordinates = [p.coordinates for p in points]
         for i in range(len(all_coordinates[0])):
             if (len(self.min_coordinate)<=i):
@@ -66,6 +76,11 @@ class MinMaxNormalizer:
                         self.min_coordinate[i]=x[i]
 
     def transform(self,points):
+        """
+        transform the points and normalize them
+        :param points: the points to normalize
+        :return: the new points
+        """
         new_points = []
         for p in points:
             new_coordinates=p.coordinates

@@ -30,6 +30,14 @@ def load_data():
 
 
 def knn_n_fold(k, n, points, normal_type):
+    """
+    run knn with n folds with normalized points
+    :param k: k-nn
+    :param n: n folds
+    :param points: the points to use
+    :param normal_type: the normalization of those points
+    :return:
+    """
     m = KNN(k)
     cv = CrossValidation()
     cv.run_cv(normal_type(points), n, m, accuracy_score,normal_type, print_fold_score=True)
