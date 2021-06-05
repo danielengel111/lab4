@@ -52,6 +52,7 @@ class ZNormalizer:
             new.append(Point(p.name, new_coordinates, p.label))
         return new
 
+
 class MinMaxNormalizer:
 
     def __init__(self):
@@ -84,8 +85,8 @@ class MinMaxNormalizer:
         new_points = []
         for p in points:
             new_coordinates=p.coordinates
-            new_coordinates = [(new_coordinates[i] - self.min_coordinate[i]) / (self.max_coordinate[i]-self.min_coordinate[i])
-                                for i in range(len(p.coordinates))]
+            new_coordinates = [(new_coordinates[i] - self.min_coordinate[i]) /
+                               (self.max_coordinate[i]-self.min_coordinate[i]) for i in range(len(p.coordinates))]
             new_points.append(Point(p.name, new_coordinates, p.label))
         return new_points
 

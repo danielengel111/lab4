@@ -33,8 +33,6 @@ class CrossValidation:
             for inner_index in range(n_folds):
                 if inner_index != out_fold_index:
                     train_set += self._folds[inner_index]
-            #train_set=normal(train_set)
-            #test_set=normal(test_set)
 
             # Train and predict
             classifier.train(train_set)
@@ -49,5 +47,5 @@ class CrossValidation:
 
         average_score /= n_folds
         if print_final_score:
-            print(scoring_function.__name__, average_score,"\n")
+            print("Accuracy of "+normal.__qualname__.split(".",)[0]+" is ", average_score,"\n")
         return average_score
